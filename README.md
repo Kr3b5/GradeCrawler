@@ -23,6 +23,8 @@ Simple Grade Crawler for DHGE SelfService
    :information_source: Script create data at first run, check grades in terminal! Later the
      script sends notification mails if new grades detected
 
+___
+
 :warning: This crawler use Firefox as Seleniumdriver, but Chrome can be
 used too.
    >Chromedriver download:
