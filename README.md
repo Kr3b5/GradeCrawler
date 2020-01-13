@@ -25,7 +25,7 @@ Simple Grade Crawler for DHGE SelfService
 
 :warning: This crawler use Firefox as Seleniumdriver, but Chrome can be
 used too.
-- **Chromedriver download:**
+   >Chromedriver download:
       <https://chromedriver.chromium.org/downloads>
 - **Config:**
       Search for line `driver = webdriver.Firefox()` and edit it to
