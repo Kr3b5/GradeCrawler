@@ -45,7 +45,7 @@ use_wizard = False           #(True/False)
 #-------------------------------------------------------------------------------
 #                                   CONFIG
 #-------------------------------------------------------------------------------
-# Credentials DHGE-Service
+# Credentials DHGE-Service ( url behind iFrame ) 
 url_dhge = ""
 matnr = ""
 passw = "!"
