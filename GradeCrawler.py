@@ -78,7 +78,7 @@ subject = "Neue Noten"
 
 #url_dhge = "http://localhost/noten.php"
 dev_mode_view = 0 # 0 = off | 1 = on - without front Page, only grade view
-dev_mode_mail = 1 # 0 = off | 1 = on - no credetials for Debug Mail Server
+dev_mode_mail = 0 # 0 = off | 1 = on - no credetials for Debug Mail Server
 
 #===============================================================================
 
