@@ -45,8 +45,8 @@ use_wizard = False           #(True/False)
 #-------------------------------------------------------------------------------
 #                                   CONFIG
 #-------------------------------------------------------------------------------
-# Credentials DHGE-Service ( url behind iFrame ) 
-url_dhge = ""
+# Credentials DHGE-Service
+url_dhge = "https://gera.dhge.de/SelfService/start.php"
 matnr = ""
 passw = "!"
 semester = 3
@@ -99,9 +99,11 @@ def main():
     if(use_wizard == True):
         init_wizard()
 
+    idle_print = 1
+
     while True:
         this_hour = datetime.now().hour
-        #check if time is in range -> lower traffic
+        #check if time is in range -> reduce traffic
         if(is_online(this_hour)):
             # get web content
             html_source = get_content()
@@ -111,8 +113,12 @@ def main():
             old_grade_list = get_list()
             #compare both for new grades
             compare(grade_list, old_grade_list)
+            #reduce output idle
+            idle_print = 1
         else:
-            print(f"> Idle - next check:{start_time}:00\n")
+            if(idle_print == 1 ):
+                print(f"> Idle - next check:{start_time}:00\n")
+                idle_print = 0
         sleep(delay)
 
 
