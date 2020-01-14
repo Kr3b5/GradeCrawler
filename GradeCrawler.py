@@ -48,7 +48,7 @@ use_wizard = False           #(True/False)
 # Credentials DHGE-Service
 url_dhge = "https://gera.dhge.de/SelfService/start.php"
 matnr = ""
-passw = "!"
+passw = ""
 semester = 3
 
 #Features
@@ -93,8 +93,8 @@ def main():
     print(" | | |_ | '__/ _` |/ _` |/ _ \\ | |    | '__/ _` \\ \\ /\\ / / |/ _ \\ '__|")
     print(" | |__| | | | (_| | (_| |  __/ | |____| | | (_| |\\ V  V /| |  __/ |   ")
     print("  \\_____|_|  \\__,_|\\__,_|\\___|  \\_____|_|  \\__,_| \\_/\\_/ |_|\\___|_|   ")
-    print("                                                   Copyright by Kr3b5")
-    print("\n> Starting... \n")
+    print("                                                   Copyright by Kr3b5\n")
+    printcmd("Starting... \n")
 
     if(use_wizard == True):
         init_wizard()
@@ -117,36 +117,37 @@ def main():
             idle_print = 1
         else:
             if(idle_print == 1 ):
-                print(f"> Idle - next check:{start_time}:00\n")
+                printcmd(f"> Idle - next check:{start_time}:00\n")
                 idle_print = 0
         sleep(delay)
 
 
 def init_wizard():
-    print("> Start Init Wizard... \n")
+    printcmd("Start Init Wizard... \n")
     # Credentials DHGE-Service
-    matnr = input(">> Matrikelnummer: ")
-    passw = getpass.getpass(prompt='>> Passwort: ')
-    semester = int(input(">> Semester(1-6): "))
+    matnr = input("? Matrikelnummer: ")
+    passw = getpass.getpass(prompt='? Passwort: ')
+    semester = int(input("? Semester(1-6): "))
     print("----------------------------------------------------------")
     #Delay Check / Online Time
-    delay = int(input(">> In welchen Minutentakt checken: "))*60   #1min = 60
+    delay = int(input("? In welchen Minutentakt checken: "))*60   #1min = 60
     print("----------------------------------------------------------")
     #SMTP Server (Mail)
-    if( input(">> Aktiviere Mail (True/False): ").lower() == 'true'):
+    if( input("? Aktiviere Mail (True/False): ").lower() == 'true'):
         want_Mail = True
     else:
         want_Mail = False
     if(want_Mail == True):
-        port = int(input(">> SMTP Server Port: "))
-        smtp_server = input(">> SMTP Server Adresse: ")
-        login = input(">> Loginname: ")
-        password = getpass.getpass(prompt='>> Passwort: ')
+        port = int(input("? SMTP Server Port: "))
+        smtp_server = input("? SMTP Server Adresse: ")
+        login = input("? Loginname: ")
+        password = getpass.getpass(prompt='? Passwort: ')
         # Mail Content
-        sender = input(">> Sendername: ")
-        receiver = input(">> Empfänger: ")
-        subject = input(">> Betreff: ")
-    print("Setup complete! Start crawler...\n")
+        sender = input("? Sendername: ")
+        receiver = input("? Empfänger: ")
+        subject = input("? Betreff: ")
+    print("")
+    printcmd("Setup complete! Start crawler...\n")
 
 
 def is_online(time):
@@ -219,22 +220,22 @@ def get_list():
 
 def compare(grade_list, old_grade_list):
     if(isinstance(old_grade_list, str)):
-        print("> First init run!")
+        printcmd("First init run!")
         write_file(grade_list)
-        print("\nGradelist (new):")
-        print(grade_list)
+        printcmd("Gradelist (new):")
+        printcmd(grade_list)
         print("")
     elif(grade_list == old_grade_list):
-        print("> No new grades available!")
-        print("\nGradelist (old|new):")
-        print(old_grade_list)
+        printcmd("No new grades available!")
+        printcmd("Gradelist (old|new):")
+        printcmd(old_grade_list)
         print("")
     else:
-        print("> New grades available!")
+        printcmd("New grades available!")
         write_file(grade_list)
-        print("\nGradelist (old|new):")
-        print(old_grade_list)
-        print(grade_list)
+        printcmd("Gradelist (old|new):")
+        printcmd(old_grade_list)
+        printcmd(grade_list)
         print("")
         if( want_Mail ):
             send_mail(grade_list)
@@ -253,16 +254,19 @@ def send_mail(grade_list):
             server.login(login, password)
         server.sendmail(sender, receiver, message)
     except (gaierror, ConnectionRefusedError):
-      print('> Failed to connect to the server. Bad connection settings?')
+      printcmd('Failed to connect to the server. Bad connection settings?')
     except smtplib.SMTPServerDisconnected:
-      print('> Failed to connect to the server. Wrong user/password?')
+      printcmd('Failed to connect to the server. Wrong user/password?')
     except smtplib.SMTPException as e:
-      print('> SMTP error occurred: ' + str(e))
+      printcmd('SMTP error occurred: ' + str(e))
     else:
-      print('> Success')
+      printcmd('Success')
     print("")
 
-
+def printcmd(s):
+    dateTimeObj = datetime.now()
+    timestampStr = dateTimeObj.strftime("[%b %d %y %H:%M:%S]")
+    print(f"{timestampStr} {s}" )
 
 
 if __name__ == '__main__':
