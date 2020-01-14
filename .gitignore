@@ -2,3 +2,7 @@
 *.txt
 
 *.exe
+
+GradeCrawlerDEV\.py
+
+*.log
