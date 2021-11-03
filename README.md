@@ -2,6 +2,8 @@
 
 Simple Grade Crawler for DHGE SelfService
 
+Version for Docker (by Rosaloeffler): https://github.com/rosaloeffler/GradeCrawler-Dockerized
+
 ## Setup:
   
 1. Extract script and Firefoxdriver (geckodriver) in the same diretory
